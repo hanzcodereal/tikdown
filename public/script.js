@@ -26,37 +26,71 @@ document.querySelectorAll('[data-aos]').forEach(function(el) {
 
 document.getElementById('downloadForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const url = document.getElementById('tiktokUrl').value.trim();
+    var url = document.getElementById('tiktokUrl').value.trim();
+    var container = document.getElementById('resultContainer');
+    
     if (!url) {
-        alert('Please paste a TikTok link');
+        container.innerHTML = '<div class="text-red-400">Please paste a TikTok link</div>';
         return;
     }
-    const container = document.getElementById('resultContainer');
+    
     container.innerHTML = '<div class="text-gray-400">Processing...</div>';
+    
     try {
-        const response = await fetch('/api/download', {
+        var response = await fetch('/api/download', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url })
+            body: JSON.stringify({ url: url })
         });
-        const data = await response.json();
-        if (data.Status && data.Result && data.Result.length > 0) {
-            let html = '<div class="bg-[252525] rounded-lg p-4 border border-gray-700">';
-            if (data.Metadata && data.Metadata.title) {
-                html += '<h3 class="text-white font-bold mb-2">' + data.Metadata.title + '</h3>';
+        
+        var data = await response.json();
+        
+        if (data.success && data.data) {
+            var result = data.data;
+            var html = '<div class="bg-[252525] rounded-lg p-4 border border-gray-700">';
+            
+            if (result.username) {
+                html += '<p class="text-accent font-bold mb-1">@' + result.username + '</p>';
             }
-            if (data.Metadata && data.Metadata.author) {
-                html += '<p class="text-gray-400 text-sm mb-3">by ' + data.Metadata.author + '</p>';
+            if (result.description) {
+                html += '<p class="text-white text-sm mb-3">' + result.description.substring(0, 100) + (result.description.length > 100 ? '...' : '') + '</p>';
             }
+            
             html += '<div class="space-y-2">';
-            data.Result.forEach(function(item) {
-                var label = item.label || item.type;
-                html += '<a href="' + item.url + '" target="_blank" class="block bg-[191919] hover:bg-[2a2a2a] text-white px-4 py-2 rounded-lg transition border border-gray-700 text-sm">Download ' + label + '</a>';
-            });
+            
+            if (result.type === 'photo') {
+                if (result.slides && result.slides.length > 0) {
+                    html += '<p class="text-gray-400 text-xs mb-2">Photo Slides (' + result.slides.length + ' images)</p>';
+                    result.slides.forEach(function(slide) {
+                        html += '<a href="' + slide.url + '" target="_blank" class="block bg-[191919] hover:bg-[2a2a2a] text-white px-4 py-2 rounded-lg transition border border-gray-700 text-sm">Download Image ' + slide.index + '</a>';
+                    });
+                }
+            } else {
+                if (result.downloads && result.downloads.nowm && result.downloads.nowm.length > 0) {
+                    result.downloads.nowm.forEach(function(link) {
+                        html += '<a href="' + link + '" target="_blank" class="block bg-[191919] hover:bg-[2a2a2a] text-white px-4 py-2 rounded-lg transition border border-gray-700 text-sm">Download Video (No Watermark)</a>';
+                    });
+                }
+                if (result.downloads && result.downloads.wm && result.downloads.wm.length > 0) {
+                    result.downloads.wm.forEach(function(link) {
+                        html += '<a href="' + link + '" target="_blank" class="block bg-[191919] hover:bg-[2a2a2a] text-white px-4 py-2 rounded-lg transition border border-gray-700 text-sm">Download Video (With Watermark)</a>';
+                    });
+                }
+                if (result.mp3 && result.mp3.length > 0) {
+                    result.mp3.forEach(function(link) {
+                        html += '<a href="' + link + '" target="_blank" class="block bg-[191919] hover:bg-[2a2a2a] text-white px-4 py-2 rounded-lg transition border border-gray-700 text-sm">Download Audio (MP3)</a>';
+                    });
+                }
+            }
+            
+            if (result.thumbnail) {
+                html += '<div class="mt-3"><img src="' + result.thumbnail + '" alt="Thumbnail" class="rounded-lg max-h-48 w-auto" /></div>';
+            }
+            
             html += '</div></div>';
             container.innerHTML = html;
         } else {
-            container.innerHTML = '<div class="text-red-400">' + (data.Error || 'No download links found') + '</div>';
+            container.innerHTML = '<div class="text-red-400">' + (data.error || 'Failed to get download links. Make sure the video is public.') + '</div>';
         }
     } catch (err) {
         container.innerHTML = '<div class="text-red-400">Error: ' + err.message + '</div>';
