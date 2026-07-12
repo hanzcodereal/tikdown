@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tikdown - TikTok Downloader Without Watermark</title>
+    <meta name="description" content="Download TikTok videos, audios, and slide images easily." />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="min-h-screen flex flex-col font-sans bg-[191919] text-white">
+        <nav class="w-full p-4 md:p-6 border-b border-gray-800 bg-[191919] sticky top-0 z-50">
+            <div class="max-w-4xl mx-auto flex justify-between items-center">
+                <div class="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                    Tik<span class="text-accent">down</span>
+                </div>
+                <a href="https://saweria.co/hanzreally" target="_blank" class="support-link text-sm font-medium transition">
+                    Support
+                </a>
+            </div>
+        </nav>
+
+        <main class="flex-grow w-full overflow-hidden">
+            <section class="py-12 md:py-20 px-4 text-center">
+                <div data-aos="fade-down" class="max-w-3xl mx-auto">
+                    <h1 class="text-3xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight">
+                        Download TikTok <br />
+                        <span class="text-accent">Without Watermark</span>
+                    </h1>
+                    <p class="text-gray-400 text-base md:text-lg mb-8 px-2">
+                        Fastest way to save TikTok videos, MP3 audio, and image slides in HD quality.
+                    </p>
+                    
+                    <form id="downloadForm" class="relative max-w-xl mx-auto mb-12 w-full">
+                        <div class="relative flex items-center">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-gray-500">
+                                    <path d="M9 17H7A5 5 0 0 1 7 7h2"></path>
+                                    <path d="M15 7h2a5 5 0 1 1 0 10h-2"></path>
+                                    <line x1="8" x2="16" y1="12" y2="12"></line>
+                                </svg>
+                            </div>
+                            <input id="tiktokUrl" type="text" placeholder="Paste TikTok link here..." class="w-full pl-12 pr-28 md:pr-32 py-3 md:py-4 bg-[252525] border border-gray-700 rounded-full focus:outline-none focus:border-accent text-white placeholder-gray-500 transition-colors shadow-lg text-sm md:text-base" value="" />
+                            <button type="submit" class="absolute right-1.5 top-1.5 bottom-1.5 px-4 md:px-6 bg-accent hover:bg-accentHover text-white rounded-full font-medium transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center gap-2 text-sm md:text-base">
+                                Download
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div id="resultContainer" class="mt-4 text-left"></div>
+                </div>
+            </section>
+
+            <section class="py-16 md:py-20 px-4 max-w-4xl mx-auto">
+                <div class="text-center mb-10 md:mb-16">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4 text-white">Frequently Asked Questions</h2>
+                    <p class="faq-subtitle text-base">Common questions about using Tikdown</p>
+                </div>
+                <div class="space-y-4">
+                    <div data-aos="fade-up" class="faq-box border rounded-lg bg-[252525] overflow-hidden">
+                        <div class="faq-question w-full text-left px-4 md:px-6 py-4 font-semibold flex justify-between items-center hover:bg-[2a2a2a] transition text-sm md:text-base cursor-pointer">
+                            How do I download a TikTok video without watermark?
+                        </div>
+                        <div class="faq-content px-4 md:px-6 text-sm md:text-base overflow-hidden transition-all duration-300 max-h-0">
+                            Simply copy the link of the video from the TikTok app, paste it into the search box above, and click Download. Wait for our server to process it, then choose the 'No Watermark' option.
+                        </div>
+                    </div>
+                    <div data-aos="fade-up" class="faq-box border rounded-lg bg-[252525] overflow-hidden">
+                        <div class="faq-question w-full text-left px-4 md:px-6 py-4 font-semibold flex justify-between items-center hover:bg-[2a2a2a] transition text-sm md:text-base cursor-pointer">
+                            Is it free to use?
+                        </div>
+                        <div class="faq-content px-4 md:px-6 text-sm md:text-base overflow-hidden transition-all duration-300 max-h-0">
+                            Yes, Tikdown is 100% free to use. You can download as many videos as you want without any restrictions or hidden fees.
+                        </div>
+                    </div>
+                    <div data-aos="fade-up" class="faq-box border rounded-lg bg-[252525] overflow-hidden">
+                        <div class="faq-question w-full text-left px-4 md:px-6 py-4 font-semibold flex justify-between items-center hover:bg-[2a2a2a] transition text-sm md:text-base cursor-pointer">
+                            Does it support Photo Slides?
+                        </div>
+                        <div class="faq-content px-4 md:px-6 text-sm md:text-base overflow-hidden transition-all duration-300 max-h-0">
+                            Absolutely. Our system auto-detects if the link is a video or an image carousel. You can download individual images from the slide or the background music.
+                        </div>
+                    </div>
+                    <div data-aos="fade-up" class="faq-box border rounded-lg bg-[252525] overflow-hidden">
+                        <div class="faq-question w-full text-left px-4 md:px-6 py-4 font-semibold flex justify-between items-center hover:bg-[2a2a2a] transition text-sm md:text-base cursor-pointer">
+                            Where are the videos saved?
+                        </div>
+                        <div class="faq-content px-4 md:px-6 text-sm md:text-base overflow-hidden transition-all duration-300 max-h-0">
+                            Videos are saved to your device's default download folder, usually 'Downloads' on Windows, Mac, Android, and iPhone.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="border-t border-gray-800 bg-[121212] py-8 text-center text-sm">
+            <p class="footer-text">2026 Tikdown. All rights reserved.</p>
+            <p class="footer-text mt-2">Created by Hanzcode</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
